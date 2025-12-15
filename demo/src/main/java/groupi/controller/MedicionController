@@ -1,0 +1,58 @@
+package GroupI.controller;
+
+
+import com.drunknesslevel.model.Medicion;
+import com.drunknesslevel.service.MedicionService;
+import org.springframework.web.bind.annotation.*;
+
+
+import java.util.List;
+
+
+@RestController
+@RequestMapping("/mediciones")
+public class MedicionController {
+
+
+private final MedicionService service;
+
+
+public MedicionController(MedicionService service) {
+this.service = service;
+}
+
+
+// CREATE
+@PostMapping
+public Medicion crear(@RequestBody Medicion medicion) {
+return service.save(medicion);
+}
+
+
+// READ ALL
+@GetMapping
+public List<Medicion> listar() {
+return service.findAll();
+}
+
+
+// READ ONE
+@GetMapping("/{id}")
+public Medicion obtener(@PathVariable Long id) {
+return service.findById(id);
+}
+
+
+// UPDATE
+@PutMapping("/{id}")
+public Medicion actualizar(@PathVariable Long id, @RequestBody Medicion medicion) {
+return service.update(id, medicion);
+}
+
+
+// DELETE
+@DeleteMapping("/{id}")
+public void borrar(@PathVariable Long id) {
+service.delete(id);
+}
+}
